@@ -1,0 +1,16 @@
+,pattern_id,pattern
+0,0,oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+1,1,"Redis version=<*>, bits=<*>, commit=<*>, modified=<*>, pid=<*>, just started"
+2,2,Configuration loaded
+3,3,Server initialized
+4,4,WARNING overcommit_memory is set to <*>! Background save may fail under low memory condition. To fix this issue add '<*>' to <*> and then reboot or run the command '<*>' for this to take effect.
+5,5,"WARNING you have Transparent Huge Pages (THP) support enabled in your kernel. This will create latency and memory usage issues with Redis. To fix this issue run the command '<*>' as root, and add it to your <*> in order to retain the setting after a reboot. Redis must be restarted after THP is disabled."
+6,6,Write error saving DB on disk: No space left on device
+7,7,Background saving error
+8,8,Write error saving DB on disk: No space left on <*> <*> # Background saving error
+9,9,Write error saving DB on disk: No <*> <*> # Background saving error
+10,10,<*> changes in <*>. Saving...
+11,11,Background saving started by pid <*>
+12,12,DB saved on disk
+13,13,RDB: <*> MB of memory used by copy-on-write
+14,14,Background saving terminated with success

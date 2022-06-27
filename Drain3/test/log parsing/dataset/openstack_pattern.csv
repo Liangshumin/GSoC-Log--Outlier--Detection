@@ -1,0 +1,52 @@
+,pattern_id,pattern
+0,0,"[instance: <*>] Attempting claim: memory <*>, disk <*>, vcpus <*> CPU"
+1,1,[instance: <*>] Claim successful
+2,2,[instance: <*>] Creating image
+3,3,[instance: <*>] Deleting instance files <*>
+4,4,[instance: <*>] Deletion of <*> complete
+5,5,"[instance: <*>] disk limit not specified, defaulting to unlimited"
+6,6,[instance: <*>] During sync_power_state the instance has a pending task (<*>). Skip.
+7,7,[instance: <*>] Instance destroyed successfully.
+8,8,[instance: <*>] Instance spawned successfully.
+9,9,"[instance: <*>] memory limit: <*>, free: <*>"
+10,10,[instance: <*>] Terminating instance
+11,11,[instance: <*>] Took <*> seconds to <*> the instance on the hypervisor.
+12,12,[instance: <*>] Took <*> seconds to build instance.
+13,13,[instance: <*>] Took <*> seconds to deallocate network for instance.
+14,14,"[instance: <*>] Total disk: <*>, used: <*>"
+15,15,"[instance: <*>] Total memory: <*>, used: <*>"
+16,16,"[instance: <*>] Total vcpu: <*>VCPU, used: <*> VCPU"
+17,17,"[instance: <*>] vcpu limit not specified, defaulting to unlimited"
+18,18,[instance: <*>] VM Paused (Lifecycle Event)
+19,19,[instance: <*>] VM Resumed (Lifecycle Event)
+20,20,[instance: <*>] VM Started (Lifecycle Event)
+21,21,[instance: <*>] VM Stopped (Lifecycle Event)
+22,22,"<*> ""DELETE <*> HTTP/1.1"" status: 204 len: 203 time: <*>"
+23,23,"<*> ""GET <*> HTTP/1.1"" status: 200 len: <*> time: <*>"
+24,24,"<*> ""GET <*> HTTP/1.1"" status: 404 len: <*> time: <*>"
+25,25,"<*> ""GET <*> HTTP/1.1"" status: 503 len: <*> time: <*>"
+26,26,"<*> ""POST <*> HTTP/1.1"" status: 200 len: <*> time: <*>"
+27,27,"<*> ""POST <*> HTTP/1.1"" status: 202 len: <*> time: <*>"
+28,28,"<*> ""POST <*> HTTP/1.1"" status: 404 len: <*> time: <*>"
+29,29,Active base files: <*>
+30,30,Auditing locally available compute resources for node <*>
+31,31,Bad response code while validating token: 503
+32,32,Base or swap file too young to remove: <*>
+33,33,Compute_service record updated for <*>
+34,34,"couldn't obtain the vcpu count from domain id: <*>, exception: Requested operation is not valid: cpu affinity is not supported"
+35,35,Creating event network-vif-plugged:<*> for instance <*>
+36,36,Error during ComputeManager._run_image_cache_manager_pass
+37,37,Final resource view: name=<*> phys_ram=<*> used_ram=<*> phys_disk=<*> used_disk=<*> total_vcpus=<*> used_vcpus=<*> pci_stats=[<*>]
+38,38,HTTP exception thrown: No instances found for any event
+39,39,"Identity response: <!DOCTYPE HTML PUBLIC ""-//IETF//DTD HTML 2.0//EN"">"
+40,40,image <*> at (<*>): checking
+41,41,"image <*> at (<*>): in use: on this node <*> local, <*> on other nodes sharing this instance storage"
+42,42,Removable base files: <*>
+43,43,Removing base or swap file: <*>
+44,44,Running instance usage audit for <*> from <*> to <*>. <*> instances.
+45,45,Successfully synced instances from host '<*>'.
+46,46,The instance sync for host '<*>' did not match. Re-created its InstanceList.
+47,47,"Total usable vcpus: <*>, total allocated vcpus: <*>"
+48,48,Unable to validate token: Failed to fetch token data from identity server
+49,49,Unknown base file: <*>
+50,50,"While synchronizing instance power states, found <*> instances in the database and <*> instances on the hypervisor."

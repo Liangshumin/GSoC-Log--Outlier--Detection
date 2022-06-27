@@ -1,0 +1,52 @@
+,pattern_id,pattern
+0,0,reverse mapping checking getaddrinfo for <*> [<*>] failed - POSSIBLE BREAK-IN ATTEMPT!
+1,1,Accepted password for <*> from <*> port <*> ssh2
+2,2,"Address <*> maps to <*>, but this does not map back to the address - POSSIBLE BREAK-IN ATTEMPT!"
+3,3,Bad packet length <*>. [preauth]
+4,4,Bad protocol version identification '<*>' from <*> port <*>
+5,5,Connection closed by <*> [preauth]
+6,6,Corrupted MAC on input. [preauth]
+7,7,Did not receive identification string from <*>
+8,8,Disconnecting: Packet corrupt [preauth]
+9,9,Disconnecting: Too many authentication failures for <*> [preauth]
+10,10,error: connect_to <*> port <*>: failed.
+11,11,error: Received disconnect from <*>: 3: com.jcraft.jsch.JSchException: Auth <*> [preauth]
+12,12,error: Received disconnect from <*>: 14: No more user authentication methods available. [preauth]
+13,13,error: Received disconnect from <*>: 3: com.jcraft.jsch.JSchException: reject HostKey: 183.62.156.99 [preauth]
+14,14,error: Received disconnect from <*>: 13: User request [preauth]
+15,15,error: Received disconnect from <*>: 3: java.net.SocketTimeoutException: Read timed out [preauth]
+16,16,error: Received disconnect from <*>: 3: com.jcraft.jsch.JSchException: timeout in waiting for rekeying process. [preauth]
+17,17,error: Received disconnect from <*>: 3: org.vngx.jsch.userauth.AuthCancelException: User authentication canceled by user [preauth]
+18,18,error: Received disconnect from <*>: 13: Authentication cancelled by user. [preauth]
+19,19,Failed none for invalid user <*> from <*> port <*> ssh2
+20,20,Failed password for <*> from <*> port <*> ssh2
+21,21,fatal: no hostkey alg [preauth]
+22,22,fatal: Read from socket failed: Connection reset by peer [preauth]
+23,23,fatal: Write failed: Connection reset by peer [preauth]
+24,24,input_userauth_request: invalid user <*> [preauth]
+25,25,Invalid user <*> from <*>
+26,26,message repeated <*> times: [ Failed password for <*> from <*> port <*> ssh2]
+27,27,PAM <*> more authentication failure; logname=<*> uid=<*> euid=<*> tty=ssh ruser=<*> rhost=<*>
+28,28,PAM <*> more authentication failure; logname=<*> uid=<*> euid=<*> tty=ssh ruser=<*> rhost=<*> user=<*>
+29,29,PAM <*> more authentication failures; logname=<*> uid=<*> euid=<*> tty=ssh ruser=<*> rhost=<*>
+30,30,PAM <*> more authentication failures; logname=<*> uid=<*> euid=<*> tty=ssh ruser=<*> rhost=<*> user=<*>
+31,31,PAM service(sshd) ignoring max retries; <*> > <*>
+32,32,pam_unix(sshd:auth): authentication failure; logname=<*> uid=<*> euid=<*> tty=ssh ruser=<*> rhost=<*>
+33,33,pam_unix(sshd:auth): authentication failure; logname=<*> uid=<*> euid=<*> tty=ssh ruser=<*> rhost=<*> user=<*>
+34,34,pam_unix(sshd:auth): check pass; user unknown
+35,35,pam_unix(sshd:session): session closed for user <*>
+36,36,pam_unix(sshd:session): session opened for user <*> by (uid=<*>)
+37,37,Received disconnect from <*>: 11:  [preauth]
+38,38,Received disconnect from <*>: 11:
+39,39,Received disconnect from <*>: 11: Bye Bye [preauth]
+40,40,Received disconnect from <*>: 11: Closed due to user request. [preauth]
+41,41,Received disconnect from <*>: 11: disconnect [preauth]
+42,42,Received disconnect from <*>: 11: disconnected by user
+43,43,Received disconnect from <*>: 11: disconnected by user [preauth]
+44,44,"Received disconnect from <*>: 11: Normal Shutdown, Thank you for playing [preauth]"
+45,45,Received disconnect from <*>: 11: Normal Shutdown [preauth]
+46,46,Received disconnect from <*>: 11: Disconnect requested by Windows SSH Client.
+47,47,Received disconnect from <*>: 11: Session closed [preauth]
+48,48,Received disconnect from <*>: 11: Client disconnecting normally [preauth]
+49,49,syslogin_perform_logout: logout() returned an error
+50,50,Server listening on <*> port <*>.

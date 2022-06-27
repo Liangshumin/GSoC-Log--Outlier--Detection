@@ -1,0 +1,110 @@
+,pattern_id,pattern
+0,0,******* GOODBYE <*> ********
+1,1,Accepted socket connection from <*>
+2,2,autopurge.purgeInterval set to <*>
+3,3,autopurge.snapRetainCount set to <*>
+4,4,binding to port <*>
+5,5,Cannot open channel to <*> at election address /<*>
+6,6,Client attempting to establish new session at <*>
+7,7,Client attempting to renew session <*> at <*>
+8,8,Client environment:host.name=<*>
+9,9,Client environment:java.compiler=<*>
+10,10,Client environment:java.home=<*>
+11,11,Client environment:java.io.tmpdir=<*>
+12,12,Client environment:java.vendor=<*>
+13,13,Client environment:java.version=<*>
+14,14,Client environment:os.arch=<*>
+15,15,Client environment:os.name=<*>
+16,16,Client environment:os.version=<*>
+17,17,Client environment:user.dir=<*>
+18,18,Client environment:user.home=<*>
+19,19,Client environment:user.name=<*>
+20,20,Closed socket connection for client <*> (no session established for client)
+21,21,Closed socket connection for client <*> which had sessionid <*>
+22,22,"Closing connection to leader, exception during packet send"
+23,23,Closing connection to peer due to transaction timeout.
+24,24,CommitProcessor exited loop!
+25,25,connecting to localhost <*>
+26,26,"Connection broken for id <*>, my id = <*>, error =<*>"
+27,27,Connection request from old client <*>; will be dropped if server is in r-o mode
+28,28,Creating new log file: <*>
+29,29,Current zxid <*> is <= <*> for <*>
+30,30,Defaulting to majority quorums
+31,31,Established session <*> with negotiated timeout <*> for client <*>
+32,32,Exception causing close of session <*>: Broken pipe
+33,33,Exception causing close of session <*>: Connection reset by peer
+34,34,Exception causing close of session <*>: ZooKeeperServer not running
+35,35,Exception when following the leader
+36,36,Exception when using channel: for id <*> my id = <*> error = <*>
+37,37,exception while shutting down acceptor: java.net.SocketException: Socket closed
+38,38,"Expiring session <*>, timeout of <*> exceeded"
+39,39,Follower sid: <*> : info : <*>@<*>
+40,40,FollowerRequestProcessor exited loop!
+41,41,FOLLOWING
+42,42,FOLLOWING - LEADER ELECTION TOOK - <*>
+43,43,Getting a diff from the leader <*>
+44,44,Getting a snapshot from leader <*>
+45,45,Got zxid <*> expected <*>
+46,46,"Have quorum of supporters, sids: [ <*> ]; starting up and setting last processed zxid: <*>"
+47,47,Ignoring unexpected exception
+48,48,Ignoring unexpected runtime exception
+49,49,initLimit set to <*>
+50,50,Interrupted while waiting for message on queue
+51,51,Interrupting SendWorker
+52,52,Invalid autopurge.snapRetainCount: <*>. Defaulting to <*>
+53,53,"Invalid session <*> for client <*>, probably expired"
+54,54,"leader and follower are in sync, zxid=<*>"
+55,55,LEADING
+56,56,LEADING - LEADER ELECTION TOOK - <*>
+57,57,LOOKING
+58,58,maxSessionTimeout set to <*>
+59,59,minSessionTimeout set to <*>
+60,60,My election bind port: <*>
+61,61,"New election. My id = <*>, proposed zxid=<*>"
+62,62,Notification time out: <*>
+63,63,PrepRequestProcessor exited loop!
+64,64,Processed session termination for sessionid: <*>
+65,65,Processing <*> command from <*>
+66,66,Purge task completed.
+67,67,Purge task started.
+68,68,quorum.cnxn.threads.size set to <*>
+69,69,QuorumPeer communication is not secured!
+70,70,Reading configuration from: <*>
+71,71,Reading snapshot <*>
+72,72,Received connection request <*>
+73,73,Received NEWLEADER-ACK message from <*>
+74,74,Removing file: <*> <*>
+75,75,Resolved hostname: <*> to address: <*>
+76,76,Revalidating client: <*>
+77,77,Send worker leaving thread
+78,78,Sending DIFF
+79,79,Sending SNAP
+80,80,Server environment:host.name=<*>
+81,81,Server environment:java.compiler=<*>
+82,82,Server environment:java.home=<*>
+83,83,Server environment:java.io.tmpdir=<*>
+84,84,Server environment:java.vendor=<*>
+85,85,Server environment:java.version=<*>
+86,86,Server environment:os.arch=<*>
+87,87,Server environment:os.name=<*>
+88,88,Server environment:os.version=<*>
+89,89,Server environment:user.dir=<*>
+90,90,Server environment:user.home=<*>
+91,91,Server environment:user.name=<*>
+92,92,SessionTrackerImpl exited loop!
+93,93,shutdown called
+94,94,Shutdown called
+95,95,shutdown of request processor complete
+96,96,Shutting down
+97,97,shutting down
+98,98,Snapshotting: <*> to <*>
+99,99,"Socket connection established to <*>, initiating session"
+100,100,Starting quorum peer
+101,101,SyncRequestProcessor exited!
+102,102,TCP NoDelay set to: true
+103,103,"Thread SyncThread:<*> exits, error code 1"
+104,104,tickTime set to <*>
+105,105,"Unable to read additional data from client sessionid <*>, likely client has closed socket"
+106,106,Unexpected exception
+107,107,Unhandled proposal scenario
+108,108,Using <*> as server connection factory

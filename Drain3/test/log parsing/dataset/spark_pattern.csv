@@ -1,0 +1,267 @@
+,pattern_id,pattern
+0,0,[Container in shutdown] Uncaught exception in thread Thread[<*>]
+1,1,"<*> is deprecated. Instead, use <*>"
+2,2,<*>: Committed
+3,3,Abandoning <*>
+4,4,"Added <*> in memory on <*> (size: <*>, free: <*>)"
+5,5,Adding filter: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+6,6,Adding task set <*> with <*> tasks
+7,7,An unknown (<*>) driver disconnected.
+8,8,"Another thread is loading <*>, waiting for it to finish..."
+9,9,ApplicationAttemptId: <*>
+10,10,ApplicationMaster registered as NettyRpcEndpointRef(<*>)
+11,11,Asked to remove non-existent executor <*>
+12,12,Asked to send map output locations for shuffle <*> to <*>
+13,13,Asking each executor to shut down
+14,14,"Block <*> stored as bytes in memory (estimated size <*>, free <*>)"
+15,15,"Block <*> stored as values in memory (estimated size <*>, free <*>)"
+16,16,BlockManager re-registering with master
+17,17,BlockManager stopped
+18,18,BlockManagerMaster stopped
+19,19,Cancelling stage <*>
+20,20,Cannot register with driver: <*>
+21,21,Changing modify acls to: <*>
+22,22,Changing view acls to: <*>
+23,23,Cleaned accumulator <*>
+24,24,Cleaned RDD <*>
+25,25,Cleaned shuffle <*>
+26,26,Connecting to driver: <*>
+27,27,Connecting to ResourceManager at <*>
+28,28,"Container request (host: <*>, capability: <memory:<*>, vCores:<*>>)"
+29,29,Created broadcast <*> from broadcast at <*>
+30,30,Created broadcast <*> from collect at <*>
+31,31,Created broadcast <*> from reduceByKey at <*>
+32,32,Created broadcast <*> from textFile at <*>
+33,33,Created YarnClusterScheduler
+34,34,Deleting staging directory <*>
+35,35,Disabling executor <*>
+36,36,Doing the fetch; tracker endpoint = NettyRpcEndpointRef(<*>)
+37,37,"Don't have map outputs for shuffle <*>, fetching them"
+38,38,Driver <*> disassociated! Shutting down.
+39,39,Driver commanded a shutdown
+40,40,Driver now available: <*>
+41,41,Driver requested to kill executor(s) <*>
+42,42,Driver terminated or disconnected! Shutting down. <*>
+43,43,"ensureFreeSpace(<*>) called with curMem=<*>, maxMem=<*>"
+44,44,Error cleaning broadcast <*>
+45,45,Error occurred while fetching local blocks
+46,46,Error sending message [message = RetrieveSparkProps] in <*> attempts
+47,47,Error sending message [message = GetLocations(<*>)] in <*> attempts
+48,48,Error while invoking RpcHandler#receive() for one-way message.
+49,49,Error while invoking RpcHandler#receive() on RPC id <*>
+50,50,Exception in connection from <*>
+51,51,Exception in createBlockOutputStream
+52,52,Exception in task <*> in stage <*> (TID <*>)
+53,53,Exception while beginning fetch of <*> outstanding blocks
+54,54,Exception while beginning fetch of <*> outstanding blocks (after <*> retries)
+55,55,Executor is trying to kill task <*> in stage <*> (TID <*>)
+56,56,Executor killed task <*> in stage <*> (TID <*>)
+57,57,Executor lost: <*> (epoch <*>)
+58,58,"Failed to connect to driver at <*>, retrying ..."
+59,59,"Failed to fetch block <*>, and will not retry (<*> retries)"
+60,60,Failed to get block(s) from <*>
+61,61,Failed to remove broadcast <*> with removeFromMaster = true - Connection reset by peer
+62,62,Failed while starting block fetches
+63,63,failed: Set()
+64,64,File Output Committer Algorithm version is <*>
+65,65,"Final app status: FAILED, exitCode: 1, (reason: User application exited with status 1)"
+66,66,"Final app status: FAILED, exitCode: 11, (reason: Max number of executor failures (<*>) reached)"
+67,67,"Final app status: FAILED, exitCode: 143, (reason: User application exited with status 143)"
+68,68,"Final app status: SUCCEEDED, exitCode: 0"
+69,69,Final stage: ResultStage <*> (collect at <*>)
+70,70,Final stage: ResultStage <*> (collectAsMap at <*>)
+71,71,Final stage: ResultStage <*> (count at <*>)
+72,72,Final stage: ResultStage <*> (countByKey at <*>)
+73,73,Final stage: ResultStage <*> (min at <*>)
+74,74,Final stage: ResultStage <*> (max at <*>)
+75,75,Final stage: ResultStage <*> (reduce at <*>)
+76,76,Final stage: ResultStage <*> (runJob at <*>)
+77,77,Final stage: ResultStage <*> (saveAsTextFile at <*>)
+78,78,Finished task <*> in stage <*> (TID <*>) in <*> on <*> (<*>)
+79,79,Finished task <*> in stage <*> (TID <*>). <*> result sent to driver
+80,80,Finished waiting for <*>
+81,81,Found block <*> locally
+82,82,Found block <*> remotely
+83,83,"Found inactive connection to <*>, creating a new one."
+84,84,Getting <*> non-empty blocks out of <*> blocks
+85,85,Got assigned task <*>
+86,86,Got job <*> (collect at <*>) with <*> output partitions
+87,87,Got job <*> (collectAsMap at <*>) with <*> output partitions
+88,88,Got job <*> (count at <*>) with <*> output partitions
+89,89,Got job <*> (countByKey at <*>) with <*> output partitions
+90,90,Got job <*> (max at <*>) with <*> output partitions
+91,91,Got job <*> (min at <*>) with <*> output partitions
+92,92,Got job <*> (reduce at <*>) with <*> output partitions
+93,93,Got job <*> (runJob at <*>) with <*> output partitions
+94,94,Got job <*> (saveAsTextFile at <*>) with <*> output partitions
+95,95,Got the output locations
+96,96,Got told to re-register updating block <*>
+97,97,Host added was in lost list earlier: <*>
+98,98,Ignored failure: java.io.IOException: Connection from <*> closed
+99,99,Ignoring task-finished event for <*> in stage <*> because task <*> has already completed successfully
+100,100,Incomplete task interrupted: Attempting to kill Python Worker
+101,101,Input split: <*>
+102,102,Interrupted while trying for connection
+103,103,Invoking stop() from shutdown hook
+104,104,Issue communicating with driver in heartbeater
+105,105,jetty-8.y.z-SNAPSHOT
+106,106,"Job <*> failed: collect at <*>, took <*>"
+107,107,"Job <*> failed: count at <*>, took <*>"
+108,108,"Job <*> failed: runJob at <*>, took <*>"
+109,109,"Job <*> finished: collect at <*>, took <*>"
+110,110,"Job <*> finished: collectAsMap at <*>, took <*>"
+111,111,"Job <*> finished: count at <*>, took <*>"
+112,112,"Job <*> finished: countByKey at <*>, took <*>"
+113,113,"Job <*> finished: max at <*>, took <*>"
+114,114,"Job <*> finished: min at <*>, took <*>"
+115,115,"Job <*> finished: reduce at <*>, took <*>"
+116,116,"Job <*> finished: runJob at <*>, took <*>"
+117,117,"Job <*> finished: saveAsTextFile at <*>, took <*>"
+118,118,Launching container <*> for on host <*>
+119,119,looking for newly runnable stages
+120,120,Lost an executor <*> (already removed): Pending loss reason.
+121,121,Lost executor <*> on <*>: Executor heartbeat timed out after <*>
+122,122,Lost executor <*> on <*>: Slave lost
+123,123,"Lost task <*> in stage <*> (TID <*>, <*>): java.lang.OutOfMemoryError"
+124,124,"Lost task <*> in stage <*> (TID <*>, <*>): TaskKilled (killed intentionally)"
+125,125,MapOutputTrackerMasterEndpoint stopped!
+126,126,MemoryStore cleared
+127,127,MemoryStore started with capacity <*>
+128,128,Message RemoteProcessDisconnected(<*>) dropped.
+129,129,Missing an output location for shuffle <*>
+130,130,Missing parents: List()
+131,131,Missing parents: List(ShuffleMapStage <*>)
+132,132,Opening proxy : <*>
+133,133,OutputCommitCoordinator stopped!
+134,134,Parents of final stage: List()
+135,135,Parents of final stage: List(ShuffleMapStage <*>)
+136,136,"Partition <*> not found, computing it"
+137,137,Preparing Local resources
+138,138,Putting block <*> failed
+139,139,Python worker exited unexpectedly (crashed)
+140,140,Reading broadcast variable <*> took <*>
+141,141,"Received <*> containers from YARN, launching executors on <*> of them."
+142,142,Received new token for : <*>
+143,143,RECEIVED SIGNAL 15: SIGTERM
+144,144,Registered BlockManager
+145,145,Registered executor NettyRpcEndpointRef(null) (<*>) with ID <*>
+146,146,Registered signal handlers for [<*>]
+147,147,Registering BlockManagerMaster
+148,148,Registering MapOutputTracker
+149,149,Registering OutputCommitCoordinator
+150,150,Registering RDD <*> (aggregateByKey at <*>)
+151,151,Registering RDD <*> (reduceByKey at <*>)
+152,152,Registering the ApplicationMaster
+153,153,Remote daemon shut down; proceeding with flushing remote transports.
+154,154,Remoting shut down.
+155,155,Remoting started; listening on addresses :[<*>]
+156,156,"Removed <*> on <*> in memory (size: <*>, free: <*>)"
+157,157,Removed <*> successfully in removeExecutor
+158,158,"Removed TaskSet <*>, whose tasks have all completed, from pool"
+159,159,Removing block manager BlockManagerId(<*>)
+160,160,Removing executor <*> with no recent heartbeats: <*> exceeds timeout <*>
+161,161,Removing RDD <*> from persistence list
+162,162,Removing RDD <*>
+163,163,Reporter thread fails <*> time(s) in a row.
+164,164,Reporting <*> blocks to the master.
+165,165,Requesting to kill executor(s) <*>
+166,166,"Resubmitted ShuffleMapTask(<*>), so marking it as still running"
+167,167,Resubmitting failed stages
+168,168,ResultStage <*> (collect at <*>) failed in <*>
+169,169,ResultStage <*> (collect at <*>) finished in <*>
+170,170,ResultStage <*> (collectAsMap at <*>) finished in <*>
+171,171,ResultStage <*> (count at <*>) failed in <*>
+172,172,ResultStage <*> (count at <*>) finished in <*>
+173,173,ResultStage <*> (countByKey at <*>) finished in <*>
+174,174,ResultStage <*> (max at <*>) finished in <*>
+175,175,ResultStage <*> (min at <*>) finished in <*>
+176,176,ResultStage <*> (reduce at <*>) finished in <*>
+177,177,ResultStage <*> (runJob at <*>) finished in <*>
+178,178,ResultStage <*> (saveAsTextFile at <*>) finished in <*>
+179,179,Retrying connect to server: <*>. Already tried <*> time(s); maxRetries=<*>
+180,180,Retrying fetch (<*>) for <*> outstanding blocks after <*>
+181,181,Running Spark version <*>
+182,182,Running task <*> in stage <*> (TID <*>)
+183,183,running: Set()
+184,184,SchedulerBackend is ready for scheduling beginning after reached minRegisteredResourcesRatio:<*>
+185,185,Server created on <*>
+186,186,Setting up ContainerLaunchContext
+187,187,ShuffleMapStage <*> (aggregateByKey at <*>) finished in <*>
+188,188,ShuffleMapStage <*> (reduceByKey at <*>) failed in <*>
+189,189,ShuffleMapStage <*> (reduceByKey at <*>) finished in <*>
+190,190,"ShuffleMapStage <*> is now unavailable on executor <*> (<*>, false)"
+191,191,Shutdown hook called
+192,192,Shutting down all executors
+193,193,Shutting down remote daemon.
+194,194,Size of output statuses for shuffle <*> is <*>
+195,195,Slf4jLogger started
+196,196,Stage <*> contains a task of very large size (<*>). The maximum recommended task size is <*>.
+197,197,Stage <*> was cancelled
+198,198,Started SelectChannelConnector@<*>
+199,199,Started <*> remote fetches in <*>
+200,200,"Started progress reporter thread with (heartbeat : <*>, initial allocation : <*>) intervals"
+201,201,Started reading broadcast variable <*>
+202,202,Started SparkUI at <*>
+203,203,Starting Executor Container
+204,204,Starting executor ID <*> on host <*>
+205,205,Starting job: collect at <*>
+206,206,Starting job: collectAsMap at <*>
+207,207,Starting job: count at <*>
+208,208,Starting job: countByKey at <*>
+209,209,Starting job: max at <*>
+210,210,Starting job: min at <*>
+211,211,Starting job: reduce at <*>
+212,212,Starting job: runJob at <*>
+213,213,Starting job: saveAsTextFile at <*>
+214,214,Starting remoting
+215,215,"Starting task <*> in stage <*> (TID <*>, <*>, partition <*>,<*>, <*>)"
+216,216,Starting the user application in a separate Thread
+217,217,Still have <*> requests outstanding when connection from <*> is closed
+218,218,"stopped o.s.j.s.ServletContextHandler{<*>,null}"
+219,219,Stopped Spark web UI at <*>
+220,220,Submitting <*> missing tasks from ResultStage <*> (PythonRDD[<*>] at collect at <*>)
+221,221,Submitting <*> missing tasks from ResultStage <*> (PythonRDD[<*>] at count at <*>)
+222,222,Submitting <*> missing tasks from ResultStage <*> (PythonRDD[<*>] at countByKey at <*>)
+223,223,Submitting <*> missing tasks from ResultStage <*> (PythonRDD[<*>] at RDD at <*>)
+224,224,Submitting <*> missing tasks from ResultStage <*> (PythonRDD[<*>] at reduce at <*>)
+225,225,Submitting <*> missing tasks from ResultStage <*> (PythonRDD[<*>] at min at <*>)
+226,226,Submitting <*> missing tasks from ResultStage <*> (PythonRDD[<*>] at max at <*>)
+227,227,Submitting <*> missing tasks from ResultStage <*> (PythonRDD[<*>] at collectAsMap at <*>)
+228,228,Submitting <*> missing tasks from ShuffleMapStage <*> (<*> at reduceByKey at <*>)
+229,229,"Submitting ResultStage <*> (PythonRDD[<*>] at collect at <*>), which has no missing parents"
+230,230,"Submitting ResultStage <*> (PythonRDD[<*>] at count at <*>), which has no missing parents"
+231,231,"Submitting ResultStage <*> (PythonRDD[<*>] at countByKey at <*>), which has no missing parents"
+232,232,"Submitting ResultStage <*> (PythonRDD[<*>] at min at <*>), which has no missing parents"
+233,233,"Submitting ResultStage <*> (PythonRDD[<*>] at max at <*>), which has no missing parents"
+234,234,"Submitting ResultStage <*> (PythonRDD[<*>] at RDD at <*>), which has no missing parents"
+235,235,"Submitting ResultStage <*> (PythonRDD[<*>] at reduce at <*>), which has no missing parents"
+236,236,Successfully registered with driver
+237,237,Successfully started service <*> on port <*>
+238,238,Successfully stopped SparkContext
+239,239,Task <*> in stage <*> failed <*> times; aborting job
+240,240,This may have been caused by a prior exception:
+241,241,"Times: total = <*>, boot = <*>, init = <*>, finish = <*>"
+242,242,Told to re-register on heartbeat
+243,243,Total input paths to process : <*>
+244,244,Trying to register BlockManager
+245,245,Trying to remove executor <*> from BlockManagerMaster.
+246,246,Uncaught exception in thread stdout writer for <*>
+247,247,Uncaught exception in thread Thread[<*>]
+248,248,Uncaught exception:
+249,249,Unregistering ApplicationMaster with FAILED (diag message: User application exited with status 1)
+250,250,Unregistering ApplicationMaster with SUCCEEDED
+251,251,Updating epoch to <*> and clearing cache
+252,252,User application exited with status 1
+253,253,User application exited with status 143
+254,254,Using REPL class URI: <*>
+255,255,Waiting for application to be successfully unregistered.
+256,256,Waiting for spark context initialization
+257,257,Waiting for spark context initialization ...
+258,258,Waiting for Spark driver to be reachable.
+259,259,"waiting: Set(ResultStage <*>, ShuffleMapStage <*>, ShuffleMapStage <*>)"
+260,260,"waiting: Set(ResultStage <*>, ShuffleMapStage <*>)"
+261,261,waiting: Set(ResultStage <*>)
+262,262,"waiting: Set(ShuffleMapStage <*>, ResultStage <*>)"
+263,263,"Will request <*> executor containers, each with <*> cores and <*> memory including <*> overhead"
+264,264,yarn.client.max-cached-nodemanagers-proxies : <*>
+265,265,YarnClusterScheduler.postStartHook done
