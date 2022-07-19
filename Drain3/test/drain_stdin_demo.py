@@ -13,8 +13,10 @@ from drain3.template_miner_config import TemplateMinerConfig
 # persistence_type = "KAFKA"
 persistence_type = "FILE"
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)  #生成logger实例
+#设置日志级别：INFO类型 用来记录关键代价点的信息。format参数用来设置日志的格式 %(message)s记入日志的消息记录
 logging.basicConfig(stream=sys.stdout, level=logging.INFO, format='%(message)s')
+
 
 if persistence_type == "KAFKA":
     from drain3.kafka_persistence import KafkaPersistence
@@ -38,8 +40,8 @@ elif persistence_type == "REDIS":
 else:
     persistence = None
 
-config = TemplateMinerConfig()
-config.load(dirname(__file__) + "/drain3.ini")
+config = TemplateMinerConfig()    #用于加载配置文件的类
+config.load(dirname(__file__) + "/drain3.ini")    #dirname(__file__)返回 本文件所在的绝对路径
 config.profiling_enabled = False
 
 template_miner = TemplateMiner(persistence, config)

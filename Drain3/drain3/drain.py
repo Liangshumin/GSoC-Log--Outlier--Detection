@@ -55,6 +55,7 @@ class Drain:
                  sim_th=0.4,
                  max_children=100,
                  max_clusters=None,
+                 max_logs = None,
                  extra_delimiters=(),
                  profiler: Profiler = NullProfiler(),
                  param_str="<*>",
@@ -88,6 +89,7 @@ class Drain:
         self.profiler = profiler
         self.extra_delimiters = extra_delimiters
         self.max_clusters = max_clusters
+        self.max_logs = max_logs
         self.param_str = param_str
         self.parametrize_numeric_tokens = parametrize_numeric_tokens
 

@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ac5ce6f9-77a3-43fe-9079-afe24aacca0d" name="Default Changelist" comment="" />
+    <list default="true" id="ac5ce6f9-77a3-43fe-9079-afe24aacca0d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Drain3.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Drain3.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drain3/drain.py" beforeDir="false" afterPath="$PROJECT_DIR$/drain3/drain.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drain3/simple_profiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/drain3/simple_profiler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drain3/template_miner.py" beforeDir="false" afterPath="$PROJECT_DIR$/drain3/template_miner.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drain3/template_miner_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/drain3/template_miner_config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/drain3.ini" beforeDir="false" afterPath="$PROJECT_DIR$/test/drain3.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/drain3_state.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/drain_stdin_demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/drain_stdin_demo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/sky_log.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/sky_log.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,7 +26,11 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="ProjectId" id="2B4Dk2jNbmTGt9MgV4PLXJjndyB" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -29,12 +45,13 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\CloneStorage\Sky-log\Drain3\test" />
       <recent name="D:\pyWorkspace\Drain3\test" />
       <recent name="D:\pyWorkspace\Drain3\drain3" />
       <recent name="D:\pyWorkspace\Drain3\dataSet" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.test01">
+  <component name="RunManager" selected="Python.sky_log">
     <configuration name="drain_stdin_demo" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Drain3" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -71,6 +88,28 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/drain3/masking.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="sky_log" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Drain3" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test/sky_log.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -125,6 +164,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.sky_log" />
         <item itemvalue="Python.test01" />
         <item itemvalue="Python.test02" />
         <item itemvalue="Python.drain_stdin_demo" />
@@ -155,89 +195,104 @@
       <option name="presentableId" value="Default" />
       <updated>1656156603581</updated>
       <workItem from="1656156762583" duration="33047000" />
+      <workItem from="1658230033307" duration="7843000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="WindowStateProjectService">
-    <state x="690" y="269" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1656177254540">
+    <state x="1920" y="300" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1658230232977">
+      <screen x="1920" y="0" width="1080" height="1880" />
+    </state>
+    <state x="1920" y="300" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.0.1080.1880@1920.0.1080.1880" timestamp="1658230232977" />
+    <state x="690" y="269" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1658236523860">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="690" y="269" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/1920.0.1080.1880@0.0.1920.1040" timestamp="1656177254540" />
+    <state x="690" y="269" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/1920.0.1080.1880@0.0.1920.1040" timestamp="1658236523860" />
     <state width="1611" height="466" key="DebuggerActiveHint" timestamp="1656227487129">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1611" height="466" key="DebuggerActiveHint/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1656227487129" />
-    <state width="1877" height="842" key="GridCell.Tab.0.bottom" timestamp="1656298363723">
+    <state x="2283" y="332" key="FileChooserDialogImpl" timestamp="1658230162558">
+      <screen x="1920" y="0" width="1080" height="1880" />
+    </state>
+    <state x="2283" y="332" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1080.1880@1920.0.1080.1880" timestamp="1658230162558" />
+    <state width="1877" height="395" key="GridCell.Tab.0.bottom" timestamp="1658237903939">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="842" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1080.1880@0.0.1920.1040" timestamp="1656298363723" />
+    <state width="1877" height="395" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1080.1880@0.0.1920.1040" timestamp="1658237903939" />
     <state width="1877" height="842" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1656237119047" />
-    <state width="1877" height="842" key="GridCell.Tab.0.center" timestamp="1656298363693">
+    <state width="1877" height="395" key="GridCell.Tab.0.center" timestamp="1658237903939">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="842" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1080.1880@0.0.1920.1040" timestamp="1656298363693" />
+    <state width="1877" height="395" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1080.1880@0.0.1920.1040" timestamp="1658237903939" />
     <state width="1877" height="842" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1656237119046" />
-    <state width="1877" height="842" key="GridCell.Tab.0.left" timestamp="1656298363631">
+    <state width="1877" height="395" key="GridCell.Tab.0.left" timestamp="1658237903939">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="842" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1080.1880@0.0.1920.1040" timestamp="1656298363631" />
+    <state width="1877" height="395" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1080.1880@0.0.1920.1040" timestamp="1658237903939" />
     <state width="1877" height="842" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1656237119046" />
-    <state width="1877" height="842" key="GridCell.Tab.0.right" timestamp="1656298363694">
+    <state width="1877" height="395" key="GridCell.Tab.0.right" timestamp="1658237903939">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="842" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1080.1880@0.0.1920.1040" timestamp="1656298363694" />
+    <state width="1877" height="395" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1080.1880@0.0.1920.1040" timestamp="1658237903939" />
     <state width="1877" height="842" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1656237119047" />
-    <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1656236542186">
+    <state width="1877" height="395" key="GridCell.Tab.1.bottom" timestamp="1658237903939">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1080.1880@0.0.1920.1040" timestamp="1656206472124" />
+    <state width="1877" height="395" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1080.1880@0.0.1920.1040" timestamp="1658237903939" />
     <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1656236542186" />
-    <state width="1877" height="348" key="GridCell.Tab.1.center" timestamp="1656236542186">
+    <state width="1877" height="395" key="GridCell.Tab.1.center" timestamp="1658237903939">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1080.1880@0.0.1920.1040" timestamp="1656206472124" />
+    <state width="1877" height="395" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1080.1880@0.0.1920.1040" timestamp="1658237903939" />
     <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1656236542186" />
-    <state width="1877" height="348" key="GridCell.Tab.1.left" timestamp="1656236542185">
+    <state width="1877" height="395" key="GridCell.Tab.1.left" timestamp="1658237903939">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1080.1880@0.0.1920.1040" timestamp="1656206472124" />
+    <state width="1877" height="395" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1080.1880@0.0.1920.1040" timestamp="1658237903939" />
     <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1656236542185" />
-    <state width="1877" height="348" key="GridCell.Tab.1.right" timestamp="1656236542186">
+    <state width="1877" height="395" key="GridCell.Tab.1.right" timestamp="1658237903939">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1080.1880@0.0.1920.1040" timestamp="1656206472124" />
+    <state width="1877" height="395" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1080.1880@0.0.1920.1040" timestamp="1658237903939" />
     <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1656236542186" />
-    <state x="842" y="121" key="SettingsEditor" timestamp="1656233722966">
+    <state x="842" y="121" key="SettingsEditor" timestamp="1658230633455">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="842" y="121" key="SettingsEditor/0.0.1920.1040/1920.0.1080.1880@0.0.1920.1040" timestamp="1656174540940" />
+    <state x="842" y="121" key="SettingsEditor/0.0.1920.1040/1920.0.1080.1880@0.0.1920.1040" timestamp="1658230633455" />
+    <state x="2006" y="219" key="SettingsEditor/0.0.1920.1040/1920.0.1080.1880@1920.0.1080.1880" timestamp="1658230352485" />
     <state x="842" y="121" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1656233722966" />
+    <state x="514" y="259" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1658236300255">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="514" y="259" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1920.1040/1920.0.1080.1880@0.0.1920.1040" timestamp="1658236300255" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/test/drain_stdin_demo.py</url>
-          <line>54</line>
-          <option name="timeStamp" value="22" />
+          <url>file://$PROJECT_DIR$/test/sky_log.py</url>
+          <line>64</line>
+          <option name="timeStamp" value="31" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/drain3/template_miner.py</url>
-          <line>122</line>
-          <option name="timeStamp" value="24" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/drain3/masking.py</url>
-          <line>57</line>
-          <option name="timeStamp" value="25" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/drain3/masking.py</url>
-          <line>36</line>
-          <option name="timeStamp" value="26" />
+          <url>file://$PROJECT_DIR$/drain3/simple_profiler.py</url>
+          <line>134</line>
+          <option name="timeStamp" value="32" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -245,6 +300,7 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Drain3$test02.coverage" NAME="test02 Coverage Results" MODIFIED="1656236042840" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
     <SUITE FILE_PATH="coverage/Drain3$drain_stdin_demo.coverage" NAME="drain_stdin_demo Coverage Results" MODIFIED="1656230384761" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
+    <SUITE FILE_PATH="coverage/Drain3$sky_log.coverage" NAME="sky_log Coverage Results" MODIFIED="1658236630763" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
     <SUITE FILE_PATH="coverage/Drain3$masking.coverage" NAME="masking Coverage Results" MODIFIED="1656159304704" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/drain3" />
     <SUITE FILE_PATH="coverage/Drain3$test01.coverage" NAME="test01 Coverage Results" MODIFIED="1656236542176" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
   </component>

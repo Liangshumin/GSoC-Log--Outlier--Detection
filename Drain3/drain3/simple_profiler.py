@@ -132,7 +132,7 @@ class ProfiledSectionStats:
             took_sec_text += f" ({100 * self.total_time_sec / enclosing_time_sec:>6.2f}%)"
 
         ms_per_k_samples = f"{1000000 * self.total_time_sec / self.sample_count: 7.2f}"
-        samples_per_sec = f"{self.sample_count / self.total_time_sec: 15,.2f}"
+        samples_per_sec = f"{self.sample_count / (self.total_time_sec+float('1e-8')): 15,.2f}"
 
         if include_batch_rates:
             ms_per_k_samples += f" ({1000000 * self.total_time_sec_batch / self.sample_count_batch: 7.2f})"

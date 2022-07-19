@@ -18,17 +18,17 @@ config = TemplateMinerConfig()
 config.load(dirname(__file__) + "/drain3.ini")
 config.profiling_enabled = True
 
-template_miner = TemplateMiner(config=config)
+
 
 if persistence_type == "KAFKA":
     from drain3.kafka_persistence import KafkaPersistence
 
-    persistence = KafkaPersistence("drain3_state", bootstrap_servers="localhost:9092")
+    persistence = KafkaPersistence("skylog_state", bootstrap_servers="localhost:9092")
 
 elif persistence_type == "FILE":
     from drain3.file_persistence import FilePersistence
 
-    persistence = FilePersistence("drain3_state.bin")
+    persistence = FilePersistence("skylog_state.bin")
 
 elif persistence_type == "REDIS":
     from drain3.redis_persistence import RedisPersistence
@@ -38,10 +38,12 @@ elif persistence_type == "REDIS":
                                    redis_db=0,
                                    redis_pass='',
                                    is_ssl=True,
-                                   redis_key="drain3_state_key")
+                                   redis_key="skylog_state_key")
 else:
     persistence = None
 #train_file = 'log parsing/dataset/apache_result.csv'
+
+template_miner = TemplateMiner(persistence_handler=persistence,config=config)
 
 def get_allfile(path):
     all_file = []

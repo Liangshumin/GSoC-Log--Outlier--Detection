@@ -8,7 +8,7 @@ import zlib
 from typing import Optional, List, NamedTuple
 
 import jsonpickle
-from cachetools import LRUCache, cachedmethod
+from cachetools import LRUCache, cachedmethod, Cache
 
 from drain3.drain import Drain, LogCluster
 from drain3.masking import LogMasker
@@ -22,7 +22,17 @@ config_filename = 'drain3.ini'
 
 ExtractedParameter = NamedTuple("ExtractedParameter", [("value", str), ("mask_name", str)])
 
+class LogCache(LRUCache):
+    def __missing__(self, key):
+        return None
 
+
+    def get(self, key):
+        """
+        Returns the value of the item with the specified key without updating
+        the cache eviction algorithm.
+        """
+        return Cache.__getitem__(self,key)
 class TemplateMiner:
 
     def __init__(self,
@@ -55,6 +65,7 @@ class TemplateMiner:
             depth=self.config.drain_depth,
             max_children=self.config.drain_max_children,
             max_clusters=self.config.drain_max_clusters,
+            max_logs = self.config.drain_max_logs,
             extra_delimiters=self.config.drain_extra_delimiters,
             profiler=self.profiler,
             param_str=param_str,
@@ -65,6 +76,10 @@ class TemplateMiner:
         self.last_save_time = time.time()
         if persistence_handler is not None:
             self.load_state()
+
+        self.log_cache = LogCache(self.drain.max_logs)
+        self.log_cluster_cache = LogCache(self.drain.max_logs)
+        self.id_to_log = 0
 
     def load_state(self):
         logger.info("Checking for saved state")
@@ -119,13 +134,25 @@ class TemplateMiner:
     def add_log_message(self, log_message: str) -> dict:
         self.profiler.start_section("total")
 
-        self.profiler.start_section("mask")
-        masked_content = self.masker.mask(log_message)
-        self.profiler.end_section()
+        log_id = self.log_cache.get(log_message)
+        if log_id is None:
+            self.id_to_log += 1
+            self.log_cache[log_message]=self.id_to_log
+            self.profiler.start_section("mask")
+            masked_content = self.masker.mask(log_message)
+            self.profiler.end_section()
 
-        self.profiler.start_section("drain")
-        cluster, change_type = self.drain.add_log_message(masked_content)
-        self.profiler.end_section("drain")
+            self.profiler.start_section("drain")
+            cluster, change_type = self.drain.add_log_message(masked_content)
+            self.log_cluster_cache[self.id_to_log] = cluster
+            self.profiler.end_section("drain")
+
+        else:
+            cluster = self.log_cluster_cache.get(log_id)
+            cluster.size += 1
+            self.drain.id_to_cluster[cluster.cluster_id]
+            change_type = "none"
+
         result = {
             "change_type": change_type,
             "cluster_id": cluster.cluster_id,

@@ -21,6 +21,7 @@ class TemplateMinerConfig:
         self.drain_depth = 4
         self.drain_max_children = 100
         self.drain_max_clusters = None
+        self.drain_max_logs = None
         self.masking_instructions = []
         self.mask_prefix = "<"
         self.mask_suffix = ">"
@@ -60,6 +61,8 @@ class TemplateMinerConfig:
                                                 fallback=self.drain_max_children)
         self.drain_max_clusters = parser.getint(section_drain, 'max_clusters',
                                                 fallback=self.drain_max_clusters)
+        self.drain_max_logs = parser.getint(section_drain,'max_logs',
+                                            fallback=self.drain_max_logs)
         self.parametrize_numeric_tokens = parser.getboolean(section_drain, 'parametrize_numeric_tokens',
                                                             fallback=self.parametrize_numeric_tokens)
 
