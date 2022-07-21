@@ -131,24 +131,31 @@ class TemplateMiner:
 
         return None
 
+    def get_mask_content(self,log_message:str):
+        self.profiler.start_section("mask")
+        mask_content = self.masker.mask(log_message)
+        self.profiler.end_section("mask")
+        return mask_content
+
+
     def add_log_message(self, log_message: str) -> dict:
         self.profiler.start_section("total")
-
-        log_id = self.log_cache.get(log_message)
-        if log_id is None:
+        self.profiler.start_section("mask")
+        masked_content = self.masker.mask(log_message)
+        self.profiler.end_section()
+        mask_id = self.log_cache.get(masked_content)
+        if mask_id is None:
             self.id_to_log += 1
-            self.log_cache[log_message]=self.id_to_log
-            self.profiler.start_section("mask")
-            masked_content = self.masker.mask(log_message)
-            self.profiler.end_section()
+            self.log_cache[masked_content]=self.id_to_log
+
 
             self.profiler.start_section("drain")
-            cluster, change_type = self.drain.add_log_message(masked_content)
+            cluster, change_type = self.drain.add_log_message(log_message)
             self.log_cluster_cache[self.id_to_log] = cluster
             self.profiler.end_section("drain")
 
         else:
-            cluster = self.log_cluster_cache.get(log_id)
+            cluster = self.log_cluster_cache.get(mask_id)
             cluster.size += 1
             self.drain.id_to_cluster[cluster.cluster_id]
             change_type = "none"

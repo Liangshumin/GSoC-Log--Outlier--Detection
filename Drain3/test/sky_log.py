@@ -5,6 +5,7 @@ from os.path import dirname
 import pandas as pd
 import os
 
+
 from drain3 import TemplateMiner
 from drain3.template_miner_config import TemplateMinerConfig
 
@@ -69,6 +70,7 @@ for train_file in all_files:
             params = template_miner.extract_parameters(template, log_lines)
             print("Parameters: " + str(params))
 
+template_miner.profiler.report()
 print("Training done. Mined clusters:")
 
 for cluster in template_miner.drain.clusters:
