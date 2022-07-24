@@ -55,7 +55,7 @@ class Drain:
                  sim_th=0.4,
                  max_children=100,
                  max_clusters=None,
-                 max_logs = None,
+                 max_logs=None,
                  extra_delimiters=(),
                  profiler: Profiler = NullProfiler(),
                  param_str="<*>",
@@ -85,7 +85,7 @@ class Drain:
         self.max_node_depth = depth - 2  # max depth of a prefix tree node, starting from zero
         self.sim_th = sim_th
         self.max_children = max_children
-        self.root_node = Node()
+        self.root_node = {}
         self.profiler = profiler
         self.extra_delimiters = extra_delimiters
         self.max_clusters = max_clusters
@@ -309,12 +309,18 @@ class Drain:
         content_tokens = content.split()
         return content_tokens
 
-    def add_log_message(self, content: str):
-        content_tokens = self.get_content_as_tokens(content)         #把一个message 的下划线去掉斌切根据空格分割字符串
+    def add_log_message(self, content: str, service: str):
+        content_tokens = self.get_content_as_tokens(content)  # 把一个message 的下划线去掉斌切根据空格分割字符串
+        #如何根据service确定tree的root_node，self中用一个字典存放service：tree_root_node
+        if service in self.root_node.keys():
+            root_node = self.root_node[service]
+        else:
+            root_node = Node()
+            self.root_node[service] = root_node
 
         if self.profiler:
             self.profiler.start_section("tree_search")
-        match_cluster = self.tree_search(self.root_node, content_tokens, self.sim_th, False)
+        match_cluster = self.tree_search(root_node, content_tokens, self.sim_th, False)
         if self.profiler:
             self.profiler.end_section()
 

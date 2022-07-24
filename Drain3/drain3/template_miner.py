@@ -138,6 +138,46 @@ class TemplateMiner:
         return mask_content
 
 
+    def get_cluster(self,mask_content:str,log_service:str) -> dict:
+        mask_id = self.log_cache.get(mask_content)
+        if mask_id is None:
+            self.id_to_log += 1
+            self.log_cache[mask_content]=self.id_to_log
+
+
+            self.profiler.start_section("drain")
+            #根据log_service确定用那个tree进行搜索
+            cluster, change_type = self.drain.add_log_message(mask_content,log_service)
+            self.log_cluster_cache[self.id_to_log] = cluster
+            self.profiler.end_section("drain")
+
+        else:
+            cluster = self.log_cluster_cache.get(mask_id)
+            cluster.size += 1
+            self.drain.id_to_cluster[cluster.cluster_id]
+            change_type = "none"
+
+        result = {
+            "change_type": change_type,
+            "cluster_id": cluster.cluster_id,
+            "cluster_size": cluster.size,
+            "template_mined": cluster.get_template(),
+            "cluster_count": len(self.drain.clusters)
+        }
+
+        if self.persistence_handler is not None:
+            self.profiler.start_section("save_state")
+            snapshot_reason = self.get_snapshot_reason(change_type, cluster.cluster_id)
+            if snapshot_reason:
+                self.save_state(snapshot_reason)
+                self.last_save_time = time.time()
+            self.profiler.end_section()
+
+        self.profiler.end_section("total")
+        self.profiler.report(self.config.profiling_report_sec)
+        return result
+
+
     def add_log_message(self, log_message: str) -> dict:
         self.profiler.start_section("total")
         self.profiler.start_section("mask")
@@ -150,7 +190,7 @@ class TemplateMiner:
 
 
             self.profiler.start_section("drain")
-            cluster, change_type = self.drain.add_log_message(log_message)
+            cluster, change_type = self.drain.add_log_message(masked_content)
             self.log_cluster_cache[self.id_to_log] = cluster
             self.profiler.end_section("drain")
 
