@@ -1,3 +1,4 @@
+import json
 import logging
 import multiprocessing
 import sys
@@ -17,9 +18,10 @@ from drain3.template_miner_config import TemplateMinerConfig
 
 
 class Node:
-    def __init__(self,key,value):
-        self.log_value = key
-        self.log_service = value
+    def __init__(self,log_message,service,content=None):
+        self.log_message =log_message
+        self.log_service = service
+        self.log_mask=content
 
 class LogQueue():
     def __init__(self,maxsize=0):
@@ -62,6 +64,7 @@ def get_log(q:LogQueue):
                 如果queue已满，则等待2s之后在存放新的log，如果不满，直接存放log
                 '''
                 log_node= Node(log_lines,log_service)
+                # print(log_lines)
                 q.put(log_node)
 
                 # if q.full():
@@ -70,24 +73,32 @@ def get_log(q:LogQueue):
                 #     q.put(log_node)
 
 
-def get_mask(q:LogQueue,template_miner:TemplateMiner,mask_list):
-    log_list =[]
-    log_node = q.get()
-    while log_node is not True:
-        log_list.append(log_node)
-        log_message = log_node.log_value
-        log_service = log_node.log_service
+def get_mask(q:LogQueue,mask:LogQueue,template_miner:TemplateMiner):
+    # log_list =[]
+    log_node:Node = q.get()
+    while log_node is not None:
+        # log_list.append(log_node)
+        log_message = log_node.log_message
         mask_content = template_miner.get_mask_content(log_message)
-        mask_node = Node(mask_content, log_service)
-        mask_list.append(mask_node)
+        log_node.log_mask = mask_content
+        mask.put(log_node)
+        # mask_list.append(mask_node)
         log_node = q.get()
 
 def get_cluster(q:LogQueue):
     mask_node:Node = q.get()
     while mask_node is not None:
-        mask_content = mask_node.log_value
+        log_message = mask_node.log_message
+        mask_content = mask_node.log_mask
         log_service = mask_node.log_service
         result = template_miner.get_cluster(mask_content,log_service)
+        result_json = json.dumps(result)
+        print(result_json)
+        template = result["template_mined"]
+        params = template_miner.extract_parameters(template, log_message)
+        print("Parameters: " + str(params))
+        mask_node=q.get()
+
 
 
 
@@ -125,19 +136,23 @@ if __name__ =='__main__':
         persistence = None
 
     template_miner = TemplateMiner(persistence_handler=persistence, config=config)
-    queue = LogQueue()
+    log_queue = LogQueue()
+    mask_queue = LogQueue()
 
     log_list =[]
     mask_list =[]
 
-    log_input = multiprocessing.Process(target=get_log(queue))
-    mask = multiprocessing.Process(target=get_mask(queue,template_miner,mask_list))
+    log_input = multiprocessing.Process(target=get_log(log_queue))
+    mask = multiprocessing.Process(target=get_mask(log_queue,mask_queue,template_miner))
+    cluster = multiprocessing.Process(target=get_cluster(mask_queue))
     start = time.time()
     log_input.start()
     mask.start()
+    cluster.start()
 
     log_input.join()
     mask.join()
+    cluster.join()
     end = time.time()
 
 

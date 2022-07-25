@@ -106,7 +106,7 @@ class TemplateMiner:
 
         self.drain.id_to_cluster = loaded_drain.id_to_cluster
         self.drain.clusters_counter = loaded_drain.clusters_counter
-        self.drain.root_node = loaded_drain.root_node
+        self.drain.root_nodes = loaded_drain.root_nodes
 
         logger.info("Restored {0} clusters built from {1} messages".format(
             len(loaded_drain.clusters), loaded_drain.get_total_cluster_size()))
@@ -173,7 +173,7 @@ class TemplateMiner:
                 self.last_save_time = time.time()
             self.profiler.end_section()
 
-        self.profiler.end_section("total")
+        # self.profiler.end_section("total")
         self.profiler.report(self.config.profiling_report_sec)
         return result
 

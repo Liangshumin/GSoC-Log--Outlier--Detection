@@ -85,7 +85,7 @@ class Drain:
         self.max_node_depth = depth - 2  # max depth of a prefix tree node, starting from zero
         self.sim_th = sim_th
         self.max_children = max_children
-        self.root_node = {}
+        self.root_nodes = {}
         self.profiler = profiler
         self.extra_delimiters = extra_delimiters
         self.max_clusters = max_clusters
@@ -312,11 +312,11 @@ class Drain:
     def add_log_message(self, content: str, service: str):
         content_tokens = self.get_content_as_tokens(content)  # 把一个message 的下划线去掉斌切根据空格分割字符串
         #如何根据service确定tree的root_node，self中用一个字典存放service：tree_root_node
-        if service in self.root_node.keys():
-            root_node = self.root_node[service]
+        if service in self.root_nodes.keys():
+            root_node = self.root_nodes[service]
         else:
             root_node = Node()
-            self.root_node[service] = root_node
+            self.root_nodes[service] = root_node
 
         if self.profiler:
             self.profiler.start_section("tree_search")
@@ -332,7 +332,7 @@ class Drain:
             cluster_id = self.clusters_counter
             match_cluster = LogCluster(content_tokens, cluster_id)
             self.id_to_cluster[cluster_id] = match_cluster
-            self.add_seq_to_prefix_tree(self.root_node, match_cluster)
+            self.add_seq_to_prefix_tree(root_node, match_cluster)
             update_type = "cluster_created"
 
         # Add the new log message to the existing cluster
