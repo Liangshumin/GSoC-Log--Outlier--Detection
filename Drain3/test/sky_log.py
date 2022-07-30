@@ -59,11 +59,12 @@ for train_file in all_files:
         print(train_file)
         info = pd.read_csv(train_file)
         f = info["log_message"]
+        log_service = train_file
         #print(f)
         #with open(train_file,encoding='utf-8') as all_log_file:
 
         for log_lines in f:
-            result = template_miner.add_log_message(log_lines)
+            result = template_miner.add_log_message(log_lines,log_service)
             result_json = json.dumps(result)
             print(result_json)
             template = result["template_mined"]

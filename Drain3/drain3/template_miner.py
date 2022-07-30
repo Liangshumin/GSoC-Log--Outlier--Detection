@@ -22,17 +22,19 @@ config_filename = 'drain3.ini'
 
 ExtractedParameter = NamedTuple("ExtractedParameter", [("value", str), ("mask_name", str)])
 
+
 class LogCache(LRUCache):
     def __missing__(self, key):
         return None
-
 
     def get(self, key):
         """
         Returns the value of the item with the specified key without updating
         the cache eviction algorithm.
         """
-        return Cache.__getitem__(self,key)
+        return Cache.__getitem__(self, key)
+
+
 class TemplateMiner:
 
     def __init__(self,
@@ -65,7 +67,7 @@ class TemplateMiner:
             depth=self.config.drain_depth,
             max_children=self.config.drain_max_children,
             max_clusters=self.config.drain_max_clusters,
-            max_logs = self.config.drain_max_logs,
+            max_logs=self.config.drain_max_logs,
             extra_delimiters=self.config.drain_extra_delimiters,
             profiler=self.profiler,
             param_str=param_str,
@@ -131,23 +133,32 @@ class TemplateMiner:
 
         return None
 
-    def get_mask_content(self,log_message:str):
+    def get_mask_content(self, log_message: str):
+        """
+        Mask the parameters to get the mask content
+        @param log_message: log
+        @return:
+        """
         self.profiler.start_section("mask")
         mask_content = self.masker.mask(log_message)
         self.profiler.end_section("mask")
         return mask_content
 
-
-    def get_cluster(self,mask_content:str,log_service:str) -> dict:
+    def get_cluster(self, mask_content: str, log_service: str) -> dict:
+        """
+        Perform clustering according to mask content, and get the clustering result
+        @param mask_content:
+        @param log_service: the service name of the log
+        @return:the result of the attribute containing the cluster
+        """
         mask_id = self.log_cache.get(mask_content)
         if mask_id is None:
             self.id_to_log += 1
-            self.log_cache[mask_content]=self.id_to_log
-
+            self.log_cache[mask_content] = self.id_to_log
 
             self.profiler.start_section("drain")
-            #根据log_service确定用那个tree进行搜索
-            cluster, change_type = self.drain.add_log_message(mask_content,log_service)
+            # 根据log_service确定用那个tree进行搜索
+            cluster, change_type = self.drain.add_log_message(mask_content, log_service)
             self.log_cluster_cache[self.id_to_log] = cluster
             self.profiler.end_section("drain")
 
@@ -177,8 +188,7 @@ class TemplateMiner:
         self.profiler.report(self.config.profiling_report_sec)
         return result
 
-
-    def add_log_message(self, log_message: str) -> dict:
+    def add_log_message(self, log_message: str, log_service: str) -> dict:
         self.profiler.start_section("total")
         self.profiler.start_section("mask")
         masked_content = self.masker.mask(log_message)
@@ -186,11 +196,10 @@ class TemplateMiner:
         mask_id = self.log_cache.get(masked_content)
         if mask_id is None:
             self.id_to_log += 1
-            self.log_cache[masked_content]=self.id_to_log
-
+            self.log_cache[masked_content] = self.id_to_log
 
             self.profiler.start_section("drain")
-            cluster, change_type = self.drain.add_log_message(masked_content)
+            cluster, change_type = self.drain.add_log_message(masked_content,log_service)
             self.log_cluster_cache[self.id_to_log] = cluster
             self.profiler.end_section("drain")
 
@@ -291,7 +300,7 @@ class TemplateMiner:
             log_template, exact_matching)
 
         # Parameters are represented by specific named groups inside template_regex.
-        parameter_match = re.match(template_regex, log_message)    #从字符串log_message 开始匹配正则表达式template_regex，返回match对象
+        parameter_match = re.match(template_regex, log_message)  # 从字符串log_message 开始匹配正则表达式template_regex，返回match对象
 
         # log template does not match template
         if not parameter_match:

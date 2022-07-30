@@ -142,9 +142,9 @@ if __name__ =='__main__':
     log_list =[]
     mask_list =[]
 
-    log_input = multiprocessing.Process(target=get_log(log_queue))
-    mask = multiprocessing.Process(target=get_mask(log_queue,mask_queue,template_miner))
-    cluster = multiprocessing.Process(target=get_cluster(mask_queue))
+    log_input = multiprocessing.Process(target=get_log,args=(log_queue,))
+    mask = multiprocessing.Process(target=get_mask,args=(log_queue,mask_queue,template_miner))
+    cluster = multiprocessing.Process(target=get_cluster,args=(mask_queue,))
     start = time.time()
     log_input.start()
     mask.start()
