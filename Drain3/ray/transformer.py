@@ -61,7 +61,7 @@ class RayProducer:
 
 #在getpalette中，应该是把原始的日志信息转换为mask之后的template输出消息
 @ray.remote(num_cpus=1)
-def get_palette(log):
+def get_mask(log):
     try:
         #根据grpc获得数据,获取到log_value，将log分为id，service, log_message
         # value = r.xread()
@@ -72,7 +72,7 @@ def get_palette(log):
         #处理数据，讲获取到的log_message 和service 进行masking
         mask_content=TemplateMiner.get_mask_content(log_message)
 
-        return (mask_content,log_service)
+        return log_id,mask_content,log_service
 
 
 
@@ -82,6 +82,7 @@ def get_palette(log):
 @ray.remote(num_cpu=1)
 def get_cluster(log_mask):
     try:
+        log_id= log_mask[0]
         mask_content = log_mask[0]
         log_service= log_mask[1]
         result = template_miner.get_cluster(mask_content,log_service)
@@ -89,6 +90,7 @@ def get_cluster(log_mask):
         print(result_json)
         template = result["template_mined"]
         #params = template_miner.extract_parameters(template, log_message)
+        return log_id,template
     except Exception as e:
         print('Unable to process cluster:',e)
 
@@ -97,30 +99,28 @@ def get_cluster(log_mask):
 class RayConsumer(object):
     # 创建一个stram的consumer group 并连接到redis数据库中
     def __init__(self,redis,i):
+        self.group_name=str(i)+'-logs'
+        self.r=redis
 
-        self.r= redis.xgroup_create()
+        self.r.xgroup_create('streamIN',self.group_name,id='$',mkstream=False)
 
     def start(self):
         self.run=True
         while self.run:
-            log = self.r.xread
+            log = self.r.xreadgroup(self.group_name, 'liang', {'streamIN': ">"}, count=1)
             if log is None:
                 continue
             # if msg.error():
             #     print("error:{}".format(msg.error()))
             #     continue
-            ray.get(get_palette.remote(log))
+            ray.get(get_mask.remote(log))
 
     def stop(self):
         self.run = False
 
     def destory(self):
         self.r.connection_pool.disconnect()
-#给定一个redis的结构
-redis = {
-    'connection':{},
 
-}
 #启动redis流处理程序
 #启动redis，建立连接，
 pool = re.ConnectionPool(host='127.0.0.1', port=6379, password="12345", max_connections=1024)
