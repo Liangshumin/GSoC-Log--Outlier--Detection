@@ -10,54 +10,20 @@ import requests
 from drain3 import TemplateMiner
 from drain3.template_miner_config import TemplateMinerConfig
 from ray import delivery_report
+from drain3.redis_persistence import RedisPersistence
 
 ray.init()
-logger = logging.getLogger(__name__)
-logging.basicConfig(stream=sys.stdout, level=logging.INFO, format='%(message)s')
 
-persistence_type = "Redis"
-config = TemplateMinerConfig()
-config.load(dirname(__file__) + "/drain3.ini")
-config.profiling_enabled = True
-
-if persistence_type == "KAFKA":
-    from drain3.kafka_persistence import KafkaPersistence
-
-    persistence = KafkaPersistence("ray_skylog_state", bootstrap_servers="localhost:9092")
-
-elif persistence_type == "FILE":
-    from drain3.file_persistence import FilePersistence
-
-    persistence = FilePersistence("ray_skylog_state.bin")
-
-elif persistence_type == "REDIS":
-    from drain3.redis_persistence import RedisPersistence
-
-    persistence = RedisPersistence(redis_host='',
-                                   redis_port=6379,
-                                   redis_db=0,
-                                   redis_pass='',
-                                   is_ssl=True,
-                                   redis_key="ray_skylog_state_key")
-else:
-    persistence = None
-
-template_miner = TemplateMiner(persistence_handler=persistence, config=config)
 
 @ray.remote
 class RayProducer:
-    def __init__(self, redis, sink):
+    def __init__(self, redis):
         #需要修改
-        import redis as re
-        self.producer = Producer({**redis['connection'], **redis['producer']})
-        self.sink = sink
+        self.r=redis
 
-    def produce(self, palette):
-        self.producer.produce(self.sink, json.dumps(palette).encode('utf-8'), callback=delivery_report)
-        self.producer.poll(0)
+    def dfwef(self,log_cluster):
+        self.r.xadd('stramOUT',log_cluster)
 
-    def destroy(self):
-        self.producer.flush(30)
 
 #在getpalette中，应该是把原始的日志信息转换为mask之后的template输出消息
 @ray.remote(num_cpus=1)
@@ -79,21 +45,6 @@ def get_mask(log):
     except Exception as e:
         print('Unable to process log:', e)
 
-@ray.remote(num_cpu=1)
-def get_cluster(log_mask):
-    try:
-        log_id= log_mask[0]
-        mask_content = log_mask[0]
-        log_service= log_mask[1]
-        result = template_miner.get_cluster(mask_content,log_service)
-        result_json = json.dumps(result)
-        print(result_json)
-        template = result["template_mined"]
-        #params = template_miner.extract_parameters(template, log_message)
-        return log_id,template
-    except Exception as e:
-        print('Unable to process cluster:',e)
-
 
 @ray.remote(num_cpus=0.05)
 class RayConsumer(object):
@@ -104,7 +55,7 @@ class RayConsumer(object):
 
         self.r.xgroup_create('streamIN',self.group_name,id='$',mkstream=False)
 
-    def start(self):
+    def start(self,template_miner):
         self.run=True
         while self.run:
             log = self.r.xreadgroup(self.group_name, 'liang', {'streamIN': ">"}, count=1)
@@ -113,7 +64,7 @@ class RayConsumer(object):
             # if msg.error():
             #     print("error:{}".format(msg.error()))
             #     continue
-            ray.get(get_mask.remote(log))
+            ray.get(get_mask.remote(log),template_miner)
 
     def stop(self):
         self.run = False
@@ -121,23 +72,68 @@ class RayConsumer(object):
     def destory(self):
         self.r.connection_pool.disconnect()
 
+@ray.remote
+class TemplateMiner:
+    def __init__(self):
+        logger = logging.getLogger(__name__)
+        logging.basicConfig(stream=sys.stdout, level=logging.INFO, format='%(message)s')
+
+        persistence_type = "REDIS"
+        config = TemplateMinerConfig()
+        config.load(dirname(__file__) + "/drain3.ini")
+        config.profiling_enabled = True
+        persistence = RedisPersistence(redis_host='',
+                                       redis_port=6379,
+                                       redis_db=0,
+                                       redis_pass='',
+                                       is_ssl=True,
+                                       redis_key="ray_skylog_state_key")
+
+
+        self.template_miner = TemplateMiner(persistence_handler=persistence, config=config)
+
+@ray.remote()
+class Drain:
+    def __init__(self,redis,template_miner):
+        self.r=redis
+        self.template_miner= template_miner
+
+
+    def cluster(self,log_mask):
+        log_id = log_mask[0]
+        mask_content = log_mask[0]
+        log_service = log_mask[1]
+        result = self.template_miner.get_cluster(mask_content, log_service)
+        result_json = json.dumps(result)
+        print(result_json)
+        template = result["template_mined"]
+        # params = template_miner.extract_parameters(template, log_message)
+        return {log_id: template}
+
+
 #启动redis流处理程序
 #启动redis，建立连接，
 pool = re.ConnectionPool(host='127.0.0.1', port=6379, password="12345", max_connections=1024)
 r = re.Redis(connection_pool=pool)
+template_miner= TemplateMiner.remote()
 comsumers = [RayConsumer.remote(r,i) for i in range(80)]
+drain = Drain.remote(template_miner)
 #producer = RayProducer.options(name='producer').remote(redis,'palettes')
+producer = RayProducer.remote(r)
 
 
-try:
-    refs = [c.start.remote() for c in comsumers ]
-    ray.get(refs)
-except KeyboardInterrupt:
-    for c in comsumers:
-        c.stop.remote()
-finally:
-    for c in comsumers:
-        c.destroy.remote()
-    # producer.destory.remote()
-    # ray.kill(producer)
+for c in comsumers:
+    c.start.remote(template_miner)
+
+# try:
+#     refs = [c.start.remote(template_miner) for c in comsumers ]
+#     ray.get(refs)
+# except KeyboardInterrupt:
+#     for c in comsumers:
+#         c.stop.remote()
+# finally:
+#     for c in comsumers:
+#         c.destroy.remote()
+#     # producer.destory.remote()
+#     # ray.kill(producer)
 
