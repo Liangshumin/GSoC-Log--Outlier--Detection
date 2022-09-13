@@ -1,3 +1,4 @@
+import json
 import logging
 import sys
 import zlib
@@ -7,9 +8,12 @@ from os.path import dirname
 import ray
 
 import redis
+from cachetools import LRUCache
 from redis import Redis
 
+from drain3.drain import Drain
 from drain3.masking import LogMasker
+from drain3.template_miner import LogCache
 from drain3.template_miner_config import TemplateMinerConfig
 
 ray.init()
@@ -90,7 +94,11 @@ class RayConsumer(object):
             log_service=log_body['service']
             print(log_message)
             mask = ray.get(get_mask.remote(log_message))
-            print(mask)
+            # print(mask)
+            drain = ray.get_actor('drain')
+            result=ray.get(drain.get_cluster.remote(mask,log_service))
+            result_json=json.dumps(result)
+            print(result_json)
 
 
 
@@ -99,6 +107,54 @@ class RayConsumer(object):
 
     def destroy(self):
         self.r.close()
+
+
+
+@ray.remote
+class DrainCluster:
+    def __init__(self):
+        param_str = config.mask_prefix + "*" + config.mask_suffix
+        self.drain=Drain(
+            sim_th=config.drain_sim_th,
+            depth=config.drain_depth,
+            max_children=config.drain_max_children,
+            max_clusters=config.drain_max_clusters,
+            max_logs=config.drain_max_logs,
+            extra_delimiters=config.drain_extra_delimiters,
+            param_str=param_str,
+            parametrize_numeric_tokens=config.parametrize_numeric_tokens
+        )
+        self.num_mask=0
+        self.log_cache=LogCache(self.drain.max_logs)
+        self.log_cluster_cache = LogCache(self.drain.max_logs)
+        self.parameter_extraction_cache = LRUCache(self.config.parameter_extraction_cache_capacity)
+
+    def get_cluster(self,mask_content,log_service):
+        mask_id = self.log_cache.get(mask_content)
+        if mask_id is None:
+
+            self.log_cache[mask_content] = self.num_mask
+
+
+            # 根据log_service确定用那个tree进行搜索
+            cluster, change_type = self.drain.add_log_message(mask_content, log_service)
+            self.log_cluster_cache[self.num_mask] = cluster
+
+
+        else:
+            cluster = self.log_cluster_cache.get(mask_id)
+            cluster.size += 1
+            self.drain.id_to_cluster[cluster.cluster_id]
+            change_type = "none"
+
+        result = {
+            "change_type": change_type,
+            "cluster_id": cluster.cluster_id,
+            "cluster_size": cluster.size,
+            "template_mined": cluster.get_template(),
+            "cluster_count": len(self.drain.clusters)
+        }
+        return result
 
 # consumer = RayConsumer.remote()
 #
@@ -111,7 +167,8 @@ class RayConsumer(object):
 # finally:
 #     consumer.destroy.remote()
 consumers=[RayConsumer.remote() for _ in range(5)]
-#
+drain = DrainCluster.options(name='drain').remote()
+
 try:
     refs=[c.start.remote() for c in consumers]
     ray.get(refs)
