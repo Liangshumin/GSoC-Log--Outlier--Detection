@@ -1,6 +1,7 @@
 import json
 import logging
 import sys
+import time
 import zlib
 from os import environ
 from os.path import dirname
@@ -25,40 +26,39 @@ persistence_type = "REDIS"
 config = TemplateMinerConfig()
 config.load(dirname(__file__) + "/drain3.ini")
 
-
-log_masker=LogMasker(config.masking_instructions,config.mask_prefix,config.mask_suffix)
-
-
+log_masker = LogMasker(config.masking_instructions, config.mask_prefix, config.mask_suffix)
 
 
 @ray.remote
 def get_data(data):
     if not data or not data[0] or not data[0][1]:
-        return None,None
-
+        return None, None
+    # msgId = str(data[0][0],'utf-8')
     for item in data[0][1]:
         if not item:
-            return None,None
-
-        msgId=str(item[0],'utf-8')
-        data={}
+            return None, None
+        # msgId = str(item[0],'utf-8')
+        # data= {str(key,'utf-8'):str(val,'utf-8') for key,val in item[1].items()}
+        msgId = str(item[0], 'utf-8')
+        data = {}
         for key in item[1].keys():
-            k=str(key,'utf-8')
+            k = str(key, 'utf-8')
             # print(k)
             try:
                 v = str(item[1][key], 'utf-8')
             except Exception:
                 val = zlib.decompress(item[1][key])
                 v = str(val, 'utf-8')
-            data[k]=v
-    return msgId,data
+            data[k] = v
+    return msgId, data
+
 
 @ray.remote(num_cpus=1)
 def get_mask(log_body):
     try:
 
-        #处理数据，讲获取到的log_message 和service 进行masking
-        mask_content=log_masker.mask(log_body)
+        # 处理数据，讲获取到的log_message 和service 进行masking
+        mask_content = log_masker.mask(log_body)
 
         return mask_content
 
@@ -67,40 +67,45 @@ def get_mask(log_body):
     except Exception as e:
         print('Unable to process log:', e)
 
+
 @ray.remote(num_cpus=0.05)
 class RayConsumer(object):
     # 创建一个stram的consumer group 并连接到redis数据库中
     def __init__(self):
-        hostname = environ.get("REDIS_HOSTNAME", "redis-13894.c290.ap-northeast-1-2.ec2.cloud.redislabs.com")
-        port = environ.get("REDIS_PORT", 13894)
-        self.r= Redis(hostname, port,retry_on_timeout=True, username='default', password='pD0Ukh3KD5f6zAmPbcF1XbSSU8eTLRoi')
+        hostname = environ.get("REDIS_HOSTNAME", "redis-com")
+        port = environ.get("REDIS_PORT", 123)
+        self.r = Redis(hostname, port, retry_on_timeout=True, username='default',
+                       password='password')
         try:
-            self.r.xgroup_create('test','ray_group3',id='0')
+            self.r.xgroup_create('test', 'ray_group3', id='0')
         except redis.exceptions.ResponseError:
             pass
 
     def start(self):
-        self.run=True
+        self.run = True
 
         while self.run:
-            # log=self.r.xread('test',count=1,block=None)
-            log = self.r.xreadgroup('ray_group3', 'liang', {'test': ">"}, count=1)
+            # connect to redis
+            log = self.r.xreadgroup('consumer_group_name', 'consumer', {'stream_name': ">"}, count=1)
 
             if log is None:
                 continue
-            id, log_body = ray.get(get_data.remote(log))
-            self.r.xack('test','ray_group',id)
-            log_message=log_body['log_compressed']
-            log_service=log_body['service']
+            log_id, log_body = ray.get(get_data.remote(log))
+            self.r.xack('stream_name', 'consumer_group_name', log_id)
+            self.r.xdel('stream_name', log_id)
+            # preprocess to log
+            log_message = log_body['log_compressed']
+            log_service = log_body['service']
             print(log_message)
             mask = ray.get(get_mask.remote(log_message))
-            # print(mask)
+            #clustering
             drain = ray.get_actor('drain')
-            result=ray.get(drain.get_cluster.remote(mask,log_service))
-            result_json=json.dumps(result)
-            print(result_json)
-
-
+            result = ray.get(drain.get_cluster.remote(mask, log_service))
+            # result_json=json.dumps(result)
+            print(result)
+            producer = ray.get_actor('producer')
+            #Final result are put into redis
+            ray.get(producer.put_template.remote(result, id))
 
     def stop(self):
         self.run = False
@@ -109,12 +114,14 @@ class RayConsumer(object):
         self.r.close()
 
 
-
 @ray.remote
 class DrainCluster:
     def __init__(self):
         param_str = config.mask_prefix + "*" + config.mask_suffix
-        self.drain=Drain(
+        # profiler: Profiler = NullProfiler()
+        # if config.profiling_enabled:
+        #     profiler = SimpleProfiler()
+        self.drain = Drain(
             sim_th=config.drain_sim_th,
             depth=config.drain_depth,
             max_children=config.drain_max_children,
@@ -124,19 +131,18 @@ class DrainCluster:
             param_str=param_str,
             parametrize_numeric_tokens=config.parametrize_numeric_tokens
         )
-        self.num_mask=0
-        self.log_cache=LogCache(self.drain.max_logs)
+        self.num_mask = 0
+        self.log_cache = LogCache(self.drain.max_logs)
         self.log_cluster_cache = LogCache(self.drain.max_logs)
-        self.parameter_extraction_cache = LRUCache(self.config.parameter_extraction_cache_capacity)
+        self.parameter_extraction_cache = LRUCache(config.parameter_extraction_cache_capacity)
 
-    def get_cluster(self,mask_content,log_service):
+    def get_cluster(self, mask_content, log_service):
         mask_id = self.log_cache.get(mask_content)
         if mask_id is None:
 
             self.log_cache[mask_content] = self.num_mask
 
-
-            # 根据log_service确定用那个tree进行搜索
+            # get cluster and cluster_type
             cluster, change_type = self.drain.add_log_message(mask_content, log_service)
             self.log_cluster_cache[self.num_mask] = cluster
 
@@ -154,23 +160,50 @@ class DrainCluster:
             "template_mined": cluster.get_template(),
             "cluster_count": len(self.drain.clusters)
         }
+
+        #
+        #
+        # snapshot_reason = self.get_snapshot_reason(change_type, cluster.cluster_id)
+        # if snapshot_reason:
+        #     self.save_state(snapshot_reason)
+        #     self.last_save_time = time.time()
+
+        # # self.profiler.end_section("total")
+        # self.profiler.report(self.config.profiling_report_sec)
         return result
 
-# consumer = RayConsumer.remote()
-#
-# try:
-#     ref = consumer.start.remote()
-#     id,body=ray.get(ref)
-# except KeyboardInterrupt:
-#     consumer.stop.remote()
-#
-# finally:
-#     consumer.destroy.remote()
-consumers=[RayConsumer.remote() for _ in range(5)]
-drain = DrainCluster.options(name='drain').remote()
 
+@ray.remote
+class RayProducer:
+    def __init__(self):
+        hostname = environ.get("REDIS_HOSTNAME", "redis-com")
+        port = environ.get("REDIS_PORT", 123)
+        self.r = Redis(hostname, port, retry_on_timeout=True, username='default',
+                       password='password')
+
+    def put_template(self, result, log_id):
+        template_id = result["cluster_id"]
+        change_mind = result["change_type"]
+        template = result["template_mined"]
+        id_log_template = {log_id: template_id}
+        id_template = {template_id: template}
+        if change_mind == "none":
+            print(id_log_template)
+            self.r.xadd('exit_template', id_log_template)
+        else:
+            print(id_template)
+            self.r.xadd('new_template', id_template)
+
+    def destroy(self):
+        self.r.close()
+
+
+consumers = [RayConsumer.remote() for _ in range(5)]
+drain = DrainCluster.options(name='drain').remote()
+producer = RayProducer.options(name='producer').remote()
+#
 try:
-    refs=[c.start.remote() for c in consumers]
+    refs = [c.start.remote() for c in consumers]
     ray.get(refs)
 except KeyboardInterrupt:
     for c in consumers:
@@ -178,4 +211,7 @@ except KeyboardInterrupt:
 finally:
     for c in consumers:
         c.destroy.remote()
+
+    producer.destroy.remote()
+
 
