@@ -98,14 +98,14 @@ class RayConsumer(object):
             log_service = log_body['service']
             print(log_message)
             mask = ray.get(get_mask.remote(log_message))
-            #clustering
+            # clustering
             drain = ray.get_actor('drain')
             result = ray.get(drain.get_cluster.remote(mask, log_service))
             # result_json=json.dumps(result)
             print(result)
             producer = ray.get_actor('producer')
-            #Final result are put into redis
-            ray.get(producer.put_template.remote(result, id))
+            # Final result are put into redis
+            ray.get(producer.put_template.remote(result, id, log_service))
 
     def stop(self):
         self.run = False
@@ -181,18 +181,18 @@ class RayProducer:
         self.r = Redis(hostname, port, retry_on_timeout=True, username='default',
                        password='password')
 
-    def put_template(self, result, log_id):
+    def put_template(self, result, log_id, log_service):
         template_id = result["cluster_id"]
         change_mind = result["change_type"]
         template = result["template_mined"]
-        id_log_template = {log_id: template_id}
-        id_template = {template_id: template}
-        if change_mind == "none":
-            print(id_log_template)
-            self.r.xadd('exit_template', id_log_template)
-        else:
-            print(id_template)
-            self.r.xadd('new_template', id_template)
+        service_template_id = log_service + str(template_id)
+
+        id_log_template = {'service_template_id': service_template_id, 'log_id': log_id}
+        # id_template = {'service_template_id':service_template_id,'template':template,'log_id':log_id,'service':log_service}
+        self.r.xadd('log_template', id_log_template)
+
+        if change_mind == "cluster_template_changed" or change_mind == "cluster_created":
+            self.r.hset('change_template', service_template_id, template)
 
     def destroy(self):
         self.r.close()
@@ -213,5 +213,3 @@ finally:
         c.destroy.remote()
 
     producer.destroy.remote()
-
-
