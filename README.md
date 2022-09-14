@@ -1,5 +1,5 @@
 # GSoC-Log--Outlier--Detection
-This project is based on Drain3 for log anomaly detection, we use the Ray framework and Redis database to complete the log detection process,
+This project is based on Drain3 for log outlier detection, we use the Ray framework and Redis database to complete the log detection process,
 the specific implementation process in *Drain3/ray_log/transformer.py*.<br>
 Modifications to Drain3: use cache to store logs and their corresponding clusters, reducing the repetition of the tree search clustering process.<br>
 In transformer.py, the *get_mask* function is used to implement the data processing of the logs to get a structured representation of the logs (mask).
