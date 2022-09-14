@@ -1,8 +1,0 @@
-,pattern_id,pattern
-0,0,"open() ""<*>"" failed (2: No such file or directory), client: <*>, server: <*>, request: ""GET <*> HTTP/1.1"", host: ""<*>"", referrer: ""<*>"""
-1,1,"rewrite or internal redirection cycle while internally redirecting to ""<*>"", client: <*>, server: <*>, request: ""GET <*> HTTP/1.1"", host: ""<*>"", referrer: ""<*>"""
-2,2,check time out with peer: <*>
-3,3,disable check peer: <*>
-4,4,enable check peer: <*>
-5,5,"readv() failed (104: Connection reset by peer) while reading upstream, client: <*>, server: <*>, request: ""POST <*> HTTP/1.1"", upstream: ""<*>"", host: ""<*>"""
-6,6,"readv() failed (104: Connection reset by peer) while reading upstream, client: <*>, server: <*>, request: ""GET <*> HTTP/1.1"", upstream: ""<*>, host: ""<*>"", referrer: ""<*>"""
